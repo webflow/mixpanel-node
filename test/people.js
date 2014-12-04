@@ -325,6 +325,24 @@ exports.people = {
         }
     },
 
+    get_user: {
+        "calls send_request with correct endpoint and data": function(test) {
+            var expected_data = {
+                    $token: this.token,
+                    $distinct_id: this.distinct_id
+                };
+
+            this.mixpanel.people.get_user(this.distinct_id);
+
+            test.ok(
+                this.mixpanel.send_request.calledWithMatch(this.endpoint, expected_data),
+                "people.get_user didn't call send_request with correct arguments"
+            );
+
+            test.done();
+        }
+    },
+
     unset: {
         "calls send_request with correct endpoint and data": function(test) {
 
